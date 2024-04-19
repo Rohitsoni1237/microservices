@@ -1,11 +1,11 @@
-package net.javaguides.departmentservice.controller;
+package com.example.organizationservice.controller;
 
+import com.example.organizationservice.dto.OrganizationDto;
+import com.example.organizationservice.service.OrganizationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import net.javaguides.departmentservice.dto.DepartmentDto;
-import net.javaguides.departmentservice.service.DepartmentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.*;
         description = "Department Controller exposes REST APIs for Department Service"
 )
 @RestController
-@RequestMapping("api/departments")
+@RequestMapping("api/organizations")
 @AllArgsConstructor
-public class DepartmentController {
+public class OrganizationController {
 
-    private DepartmentService departmentService;
+    private OrganizationService organizationService;
 
     @Operation(
             summary = "Save Department REST API",
@@ -29,11 +29,11 @@ public class DepartmentController {
             responseCode = "201",
             description = "HTTP Status 201 Created"
     )
-    // Build save department REST API
+    // Build Save Organization REST API
     @PostMapping
-    public ResponseEntity<DepartmentDto> saveDepartment(@RequestBody DepartmentDto departmentDto){
-        DepartmentDto savedDepartment = departmentService.saveDepartment(departmentDto);
-        return new ResponseEntity<>(savedDepartment, HttpStatus.CREATED);
+    public ResponseEntity<OrganizationDto> saveOrganization(@RequestBody OrganizationDto organizationDto){
+        OrganizationDto savedOrganization = organizationService.saveOrganization(organizationDto);
+        return new ResponseEntity<>(savedOrganization, HttpStatus.CREATED);
     }
 
     @Operation(
@@ -44,10 +44,11 @@ public class DepartmentController {
             responseCode = "200",
             description = "HTTP Status 200 SUCCESS"
     )
-    // Build get department rest api
-    @GetMapping("{department-code}")
-    public ResponseEntity<DepartmentDto> getDepartment(@PathVariable("department-code") String departmentCode){
-        DepartmentDto departmentDto = departmentService.getDepartmentByCode(departmentCode);
-        return new ResponseEntity<>(departmentDto, HttpStatus.OK);
+    // Build Get Organization by Code REST API
+    @GetMapping("{code}")
+    public ResponseEntity<OrganizationDto> getOrganization(@PathVariable("code") String organizationCode){
+        OrganizationDto organizationDto = organizationService.getOrganizationByCode(organizationCode);
+        return ResponseEntity.ok(organizationDto);
     }
+
 }

@@ -63,18 +63,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 //        DepartmentDto departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
 
-//        OrganizationDto organizationDto = webClient.get()
-//                .uri("http://localhost:8083/api/organizations/" + employee.getOrganizationCode())
-//                .retrieve()
-//                .bodyToMono(OrganizationDto.class)
-//                .block();
+        OrganizationDto organizationDto = webClient.get()
+                .uri("http://localhost:8083/api/organizations/" + employee.getOrganizationCode())
+                .retrieve()
+                .bodyToMono(OrganizationDto.class)
+                .block();
 
         EmployeeDto employeeDto = EmployeeMapper.mapToEmployeeDto(employee);
 
         APIResponseDto apiResponseDto = new APIResponseDto();
         apiResponseDto.setEmployee(employeeDto);
         apiResponseDto.setDepartment(departmentDto);
-//        apiResponseDto.setOrganization(organizationDto);
+        apiResponseDto.setOrganization(organizationDto);
         return apiResponseDto;
     }
 
